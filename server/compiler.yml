@@ -1,0 +1,80 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8091
+  adminConnectors:
+    - type: http
+      port: 8445
+
+username: test
+password: test
+
+database:
+  # the name of your JDBC driver
+  driverClass: org.postgresql.Driver
+
+  # the username
+  user: xoverUser
+
+  # the password
+  password: xoverPass
+
+  # the JDBC URL
+  url: jdbc:postgresql://localhost:5432/xover
+
+  # any properties specific to your JDBC driver:
+  properties:
+    charSet: UTF-8
+
+  # the maximum amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 1s
+
+  # the SQL query to run when validating a connection's liveness
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+
+  # the minimum number of connections to keep open
+  minSize: 8
+
+  # the maximum number of connections to keep open
+  maxSize: 32
+
+  # whether or not idle connections should be validated
+  checkConnectionWhileIdle: false
+
+  # the amount of time to sleep between runs of the idle connection validation, abandoned cleaner and idle pool resizing
+  evictionInterval: 10s
+
+  # the minimum amount of time an connection must sit idle in the pool before it is eligible for eviction
+  minIdleTime: 1 minute
+
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  loggers:
+    com.piotrkot: DEBUG
+
+  appenders:
+    # Log warnings and errors to stdout
+    - type: console
+      threshold: INFO
+      target: stdout
+
+    # Log info, warnings and errors to our apps' main log.
+    # Rolled over daily and retained for 5 days.
+    - type: file
+      threshold: INFO
+      currentLogFilename: target/logs/main.log
+      archivedLogFilenamePattern: target/logs/main-%d.log.gz
+      archivedFileCount: 5
+      timeZone: UTC
+
+    # Log debug messages, info, warnings and errors to our apps' debug log.
+    # Rolled over hourly and retained for 6 hours
+    - type: file
+      threshold: DEBUG
+      currentLogFilename: target/logs/debug.log
+      archivedLogFilenamePattern: target/logs/debug-%d{yyyy-MM-dd-hh}.log.gz
+      archivedFileCount: 6
+      timeZone: UTC

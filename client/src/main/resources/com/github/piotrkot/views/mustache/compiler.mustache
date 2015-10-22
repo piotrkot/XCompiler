@@ -1,0 +1,16 @@
+{{> header }}
+
+<p class="text-right">Hello, {{usr.name}} <a class="btn btn-primary" href="http://a:a@localhost:8090/home" role="button">Logout</a></p>
+
+<h4>Java Compiler</h4>
+
+<form action="/compiler/source" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label for="inputFile">Files to compile</label>
+        <input type="file" id="inputFile" name="inputFile">
+        <p class="help-block">Please, provide .zip file.</p>
+    </div>
+    <button type="submit" class="btn btn-primary">Compile</button>
+</form>
+
+{{> footer }}
